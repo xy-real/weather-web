@@ -5,11 +5,11 @@ import { FormEvent } from "react";
 import { useWeather } from "@/context/weather-context";
 
 export function SearchForm() {
-  const { state, dispatch, availableCities } = useWeather();
+  const { state, setQuery, searchWeather, suggestedCities } = useWeather();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch({ type: "SEARCH_CITY" });
+    await searchWeather(state.query);
   }
 
   return (
@@ -25,22 +25,27 @@ export function SearchForm() {
           <input
             type="text"
             value={state.query}
-            onChange={(event) =>
-              dispatch({ type: "SET_QUERY", payload: event.target.value })
-            }
+            onChange={(event) => setQuery(event.target.value)}
             placeholder="e.g. London"
             className="search-form__input"
           />
         </label>
 
-        <button type="submit" className="search-form__btn">
-          Search city
+        <button type="submit" className="search-form__btn" disabled={state.isLoading}>
+          {state.isLoading ? "Searching..." : "Search city"}
         </button>
       </form>
 
       <p className="search-hint">
-        Try: {availableCities.join(", ")}
+        Try: {suggestedCities.join(", ")}
       </p>
+
+      {state.isLoading ? (
+        <p className="search-loading" role="status" aria-live="polite">
+          <span className="loading-spinner" aria-hidden="true" />
+          Fetching weather data...
+        </p>
+      ) : null}
 
       {state.error ? (
         <p className="search-error">{state.error}</p>

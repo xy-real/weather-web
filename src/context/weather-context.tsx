@@ -2,31 +2,35 @@
 
 import {
   createContext,
+  useEffect,
+  useCallback,
   useContext,
   useMemo,
   useReducer,
-  type Dispatch,
   type ReactNode,
 } from "react";
 
-import { findWeatherByCity, weatherCatalog } from "@/data/weather-data";
+import { suggestedCities } from "@/data/weather-data";
 import type { WeatherData } from "@/types/weather";
 
 type WeatherState = {
   query: string;
-  selectedWeather: WeatherData;
+  selectedWeather: WeatherData | null;
   error: string;
+  isLoading: boolean;
 };
 
 type WeatherAction =
   | { type: "SET_QUERY"; payload: string }
-  | { type: "SEARCH_CITY" }
-  | { type: "CLEAR_ERROR" };
+  | { type: "FETCH_START" }
+  | { type: "FETCH_SUCCESS"; payload: WeatherData }
+  | { type: "FETCH_ERROR"; payload: string; clearSelectedWeather?: boolean };
 
 const initialState: WeatherState = {
-  query: weatherCatalog[0].city,
-  selectedWeather: weatherCatalog[0],
+  query: "London",
+  selectedWeather: null,
   error: "",
+  isLoading: false,
 };
 
 function weatherReducer(
@@ -40,37 +44,59 @@ function weatherReducer(
         query: action.payload,
         error: "",
       };
-    case "SEARCH_CITY": {
-      const result = findWeatherByCity(state.query);
-
-      if (!result) {
-        return {
-          ...state,
-          error: `No weather data found for \"${state.query.trim()}\".`,
-        };
-      }
-
+    case "FETCH_START":
       return {
         ...state,
-        selectedWeather: result,
-        query: result.city,
+        isLoading: true,
         error: "",
       };
-    }
-    case "CLEAR_ERROR":
+    case "FETCH_SUCCESS":
       return {
         ...state,
+        isLoading: false,
+        selectedWeather: action.payload,
+        query: action.payload.city,
         error: "",
+      };
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        isLoading: false,
+        selectedWeather: action.clearSelectedWeather
+          ? null
+          : state.selectedWeather,
+        error: action.payload,
       };
     default:
       return state;
   }
 }
 
+async function fetchWeather(city: string) {
+  const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+
+  const data = (await response.json()) as
+    | WeatherData
+    | {
+        message: string;
+      };
+
+  if (!response.ok) {
+    throw new Error(
+      "message" in data
+        ? data.message
+        : "Unable to fetch weather data right now.",
+    );
+  }
+
+  return data as WeatherData;
+}
+
 type WeatherContextValue = {
   state: WeatherState;
-  dispatch: Dispatch<WeatherAction>;
-  availableCities: string[];
+  setQuery: (value: string) => void;
+  searchWeather: (city: string) => Promise<void>;
+  suggestedCities: string[];
 };
 
 const WeatherContext = createContext<WeatherContextValue | undefined>(undefined);
@@ -78,13 +104,55 @@ const WeatherContext = createContext<WeatherContextValue | undefined>(undefined)
 export function WeatherProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(weatherReducer, initialState);
 
+  const setQuery = (value: string) => {
+    dispatch({ type: "SET_QUERY", payload: value });
+  };
+
+  const searchWeather = useCallback(async (cityInput: string) => {
+    const city = cityInput.trim();
+
+    if (!city) {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: "Please enter a city name.",
+        clearSelectedWeather: true,
+      });
+      return;
+    }
+
+    dispatch({ type: "FETCH_START" });
+
+    try {
+      const weather = await fetchWeather(city);
+      dispatch({ type: "FETCH_SUCCESS", payload: weather });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Network failure or service unavailable. Please check your connection and try again.";
+
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: errorMessage,
+        clearSelectedWeather:
+          errorMessage.toLowerCase().includes("no weather data found") ||
+          errorMessage.toLowerCase().includes("please enter a city name"),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    void searchWeather(initialState.query);
+  }, [searchWeather]);
+
   const value = useMemo(
     () => ({
       state,
-      dispatch,
-      availableCities: weatherCatalog.map((entry) => entry.city),
+      setQuery,
+      searchWeather,
+      suggestedCities,
     }),
-    [state],
+    [state, searchWeather],
   );
 
   return (
