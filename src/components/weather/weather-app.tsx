@@ -7,7 +7,7 @@ import { WeatherProvider } from "@/context/weather-context";
 export function WeatherApp() {
   return (
     <WeatherProvider>
-      <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
+      <div className="weather-grid">
         <SearchForm />
         <WeatherCard />
       </div>
