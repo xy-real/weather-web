@@ -6,14 +6,15 @@ export default function Home() {
       <div className="page-container">
         <header className="page-header">
           <p className="header-label">
-            Part 3 · Responsive design challenge
+            Part 4 · API integration requirements
           </p>
           <h1 className="header-title">
-            Weather dashboard — React, Next.js, TypeScript &amp; responsive CSS
+            Weather dashboard — OpenWeather API integration
           </h1>
           <p className="header-subtitle">
-            This implementation uses CSS Flexbox &amp; Grid, 3 media queries
-            (mobile / tablet / desktop), and cross-browser compatible styles.
+            Uses secure environment variables for API key storage, server-side
+            API key usage, invalid-city and network error handling, and a
+            loading spinner during requests.
           </p>
         </header>
 

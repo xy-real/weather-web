@@ -172,6 +172,11 @@ body {
   background: var(--color-sky-700);
 }
 
+.search-form__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
 .search-form__btn:active {
   transform: scale(0.98);
 }
@@ -180,6 +185,30 @@ body {
   margin-top: 1rem;
   font-size: 0.8rem;
   color: var(--color-slate-500);
+}
+
+.search-loading {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-slate-700);
+}
+
+.loading-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid var(--color-slate-300);
+  border-top-color: var(--color-sky-600);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .search-error {
@@ -233,6 +262,16 @@ body {
   font-size: 3rem;
 }
 
+.weather-card__icon-img {
+  width: 96px;
+  height: 96px;
+}
+
+.weather-card__empty {
+  margin-top: 1.5rem;
+  color: var(--color-slate-300);
+}
+
 /* CSS Grid sub-grid for stat boxes */
 .weather-card__stats {
   display: grid;
@@ -261,6 +300,12 @@ body {
   margin-top: 0.5rem;
   font-size: 2rem;
   font-weight: 700;
+}
+
+.weather-stat__icon {
+  margin-top: 0.5rem;
+  width: 64px;
+  height: 64px;
 }
 
 /* ── Responsive badge (visual indicator of current breakpoint) ── */
