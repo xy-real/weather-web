@@ -24,7 +24,7 @@ type WeatherAction =
   | { type: "SET_QUERY"; payload: string }
   | { type: "FETCH_START" }
   | { type: "FETCH_SUCCESS"; payload: WeatherData }
-  | { type: "FETCH_ERROR"; payload: string };
+  | { type: "FETCH_ERROR"; payload: string; clearSelectedWeather?: boolean };
 
 const initialState: WeatherState = {
   query: "London",
@@ -62,7 +62,9 @@ function weatherReducer(
       return {
         ...state,
         isLoading: false,
-        selectedWeather: state.selectedWeather,
+        selectedWeather: action.clearSelectedWeather
+          ? null
+          : state.selectedWeather,
         error: action.payload,
       };
     default:
@@ -110,7 +112,11 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
     const city = cityInput.trim();
 
     if (!city) {
-      dispatch({ type: "FETCH_ERROR", payload: "Please enter a city name." });
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: "Please enter a city name.",
+        clearSelectedWeather: true,
+      });
       return;
     }
 
@@ -120,12 +126,17 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
       const weather = await fetchWeather(city);
       dispatch({ type: "FETCH_SUCCESS", payload: weather });
     } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Network failure or service unavailable. Please check your connection and try again.";
+
       dispatch({
         type: "FETCH_ERROR",
-        payload:
-          error instanceof Error
-            ? error.message
-            : "Network failure or service unavailable. Please check your connection and try again.",
+        payload: errorMessage,
+        clearSelectedWeather:
+          errorMessage.toLowerCase().includes("no weather data found") ||
+          errorMessage.toLowerCase().includes("please enter a city name"),
       });
     }
   }, []);
