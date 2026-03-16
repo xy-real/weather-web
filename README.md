@@ -58,8 +58,8 @@ OpenWeather endpoints used:
 Implemented optimizations include:
 
 - `localStorage` caching for current weather + forecast responses (TTL-based)
-- Lazy-loaded forecast icons
-- Optimized forecast icons with Next.js `Image`
+- CDN integration via `jsDelivr` for non-critical performance tooling
+- Async/defer behavior for non-critical script loading using `next/script` with `lazyOnload`
 
 ## Theme system
 
