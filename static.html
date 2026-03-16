@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atmos</title>
+    <link rel="icon" type="image/png" href="./logo2.png" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+      .app-shell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .weather-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        width: 320px;
+        text-align: center;
+      }
+      .app-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0px;
+        margin-bottom: 22px;
+      }
+      .app-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+      .app-name {
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #1a2a6c;
+      }
+      .location {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #1a2a6c;
+      }
+      .date {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px;
+        font-weight: 500;
+      }
+      .weather-icon {
+        font-size: 72px;
+        margin: 10px 0;
+        line-height: 1;
+      }
+      .temperature {
+        font-size: 64px;
+        font-weight: 800;
+        margin: 10px 0;
+        color: #2c3e50;
+        letter-spacing: -2px;
+      }
+      .description {
+        font-size: 20px;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        color: #555;
+        font-weight: 500;
+      }
+      .details {
+        display: flex;
+        justify-content: space-between;
+        border-top: 2px solid #f0f0f0;
+        padding-top: 25px;
+      }
+      .detail-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .detail-label {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .detail-value {
+        font-size: 17px;
+        font-weight: 700;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="app-brand">
+        <img class="app-logo" src="./logo2.png" alt="Atmos logo" />
+        <div class="app-name">Atmos</div>
+      </div>
+      <div class="weather-card">
+        <div class="location">Baybay City, PH</div>
+        <div class="date">Monday, Mar 16</div>
+        <div class="weather-icon">⛅</div>
+        <div class="temperature">28°C</div>
+        <div class="description">Scattered Clouds</div>
+        <div class="details">
+          <div class="detail-item">
+            <span class="detail-label">Humidity</span>
+            <span class="detail-value">82%</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Wind</span>
+            <span class="detail-value">3.5 m/s</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Pressure</span>
+            <span class="detail-value">1011 hPa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
