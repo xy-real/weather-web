@@ -1,20 +1,23 @@
 import { WeatherApp } from "@/components/weather/weather-app";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
     <main className="page-wrapper">
       <div className="page-container">
         <header className="page-header">
+          <div className="header-top-row">
           <p className="header-label">
-            Part 4 · API integration requirements
+            Part 5 · Performance optimization
           </p>
+            <ThemeToggle />
+          </div>
           <h1 className="header-title">
-            Weather dashboard — OpenWeather API integration
+            Weather dashboard — optimized with theme toggle and 5-day forecast
           </h1>
           <p className="header-subtitle">
-            Uses secure environment variables for API key storage, server-side
-            API key usage, invalid-city and network error handling, and a
-            loading spinner during requests.
+            Implements localStorage caching, lazy-loaded optimized forecast
+            icons, dark/light mode, and an OpenWeather-based 5-day forecast.
           </p>
         </header>
 

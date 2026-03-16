@@ -5,6 +5,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --body-gradient-start: #f0f9ff;
+  --body-gradient-mid: #e0f2fe;
+  --body-gradient-end: #f8fafc;
+  --body-radial: rgba(125, 211, 252, 0.4);
   --color-sky-50: #f0f9ff;
   --color-sky-100: #e0f2fe;
   --color-sky-300: #7dd3fc;
@@ -37,10 +41,24 @@
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(125, 211, 252, 0.4), transparent 35%),
-    linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 45%, #f8fafc 100%);
-  color: #0f172a;
+    radial-gradient(circle at top, var(--body-radial), transparent 35%),
+    linear-gradient(180deg, var(--body-gradient-start) 0%, var(--body-gradient-mid) 45%, var(--body-gradient-end) 100%);
+  color: var(--color-slate-900);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+html[data-theme="dark"] {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --body-gradient-start: #020617;
+  --body-gradient-mid: #0f172a;
+  --body-gradient-end: #1e293b;
+  --body-radial: rgba(14, 165, 233, 0.2);
+  --color-slate-900: #e2e8f0;
+  --color-slate-700: #cbd5e1;
+  --color-slate-500: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #334155;
 }
 
 /* ── Page wrapper (Flexbox column) ─────────────────────────────── */
@@ -65,6 +83,43 @@ body {
 
 .page-header {
   max-width: 48rem;
+}
+
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-slate-900);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.theme-toggle__icon {
+  width: 16px;
+  height: 16px;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  border-color: rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.weather-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .header-label {
@@ -107,6 +162,28 @@ body {
   background: rgba(255, 255, 255, 0.95);
   padding: 1.5rem;
   box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.08);
+}
+
+html[data-theme="dark"] .search-panel {
+  border-color: rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+html[data-theme="dark"] .search-panel__heading,
+html[data-theme="dark"] .search-form__field,
+html[data-theme="dark"] .search-loading,
+html[data-theme="dark"] .search-hint,
+html[data-theme="dark"] .header-subtitle,
+html[data-theme="dark"] .header-title,
+html[data-theme="dark"] .forecast-item__condition,
+html[data-theme="dark"] .forecast-item__day {
+  color: var(--color-slate-300);
+}
+
+html[data-theme="dark"] .search-form__input {
+  border-color: #334155;
+  background: #0f172a;
+  color: #f8fafc;
 }
 
 .search-panel__label {
@@ -308,6 +385,82 @@ body {
   height: 64px;
 }
 
+.forecast-card {
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 1.25rem;
+  box-shadow: 0 8px 20px -10px rgba(2, 6, 23, 0.2);
+}
+
+.forecast-card__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-sky-600);
+}
+
+.forecast-card__empty {
+  margin-top: 1rem;
+  color: var(--color-slate-500);
+}
+
+.forecast-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.forecast-item {
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecast-item__day {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-slate-700);
+}
+
+.forecast-item__icon {
+  width: 56px;
+  height: 56px;
+}
+
+.forecast-item__temp {
+  margin-top: 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-slate-900);
+}
+
+.forecast-item__condition {
+  margin-top: 0.1rem;
+  font-size: 0.78rem;
+  color: var(--color-slate-700);
+}
+
+html[data-theme="dark"] .forecast-card {
+  border-color: rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+html[data-theme="dark"] .forecast-item {
+  border-color: rgba(148, 163, 184, 0.2);
+  background: rgba(30, 41, 59, 0.65);
+}
+
+html[data-theme="dark"] .forecast-item__temp {
+  color: #f8fafc;
+}
+
 /* ── Responsive badge (visual indicator of current breakpoint) ── */
 
 .responsive-badge {
@@ -389,8 +542,13 @@ body {
   }
 
   .search-panel,
-  .weather-card {
+  .weather-card,
+  .forecast-card {
     padding: 2rem;
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   /* Stat boxes go two-column */
@@ -501,7 +659,8 @@ body {
   }
 
   .search-panel,
-  .weather-card {
+  .weather-card,
+  .forecast-card {
     padding: 1.25rem;
   }
 
