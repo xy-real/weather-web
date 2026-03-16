@@ -34,10 +34,9 @@ export function ThemeToggle() {
   }, [theme]);
 
   function toggleTheme() {
-    const nextTheme: ThemeMode = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    applyTheme(nextTheme);
-    window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    setTheme((previousTheme) =>
+      previousTheme === "dark" ? "light" : "dark",
+    );
   }
 
   return (

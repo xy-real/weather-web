@@ -363,7 +363,6 @@ html[data-theme="dark"] .search-form__input {
   background: rgba(241, 245, 249, 0.8);
   border: 1px solid rgba(148, 163, 184, 0.2);
   padding: 1rem;
-  transition: background 0.2s ease;
 }
 
 .weather-stat:hover {
