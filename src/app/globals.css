@@ -302,9 +302,10 @@ html[data-theme="dark"] .search-form__input {
 
 .weather-card {
   border-radius: var(--radius-2xl);
-  background: var(--color-slate-950);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.92);
   padding: 1.5rem;
-  color: #fff;
+  color: var(--color-slate-900);
   box-shadow: 0 10px 15px -3px rgba(2, 6, 23, 0.15);
 }
 
@@ -313,7 +314,7 @@ html[data-theme="dark"] .search-form__input {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--color-sky-300);
+  color: var(--color-sky-600);
 }
 
 /* Flexbox row for city + icon */
@@ -332,7 +333,7 @@ html[data-theme="dark"] .search-form__input {
 
 .weather-card__condition {
   margin-top: 0.5rem;
-  color: var(--color-slate-300);
+  color: var(--color-slate-700);
 }
 
 .weather-card__icon {
@@ -346,7 +347,7 @@ html[data-theme="dark"] .search-form__input {
 
 .weather-card__empty {
   margin-top: 1.5rem;
-  color: var(--color-slate-300);
+  color: var(--color-slate-500);
 }
 
 /* CSS Grid sub-grid for stat boxes */
@@ -359,18 +360,19 @@ html[data-theme="dark"] .search-form__input {
 
 .weather-stat {
   border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(241, 245, 249, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.2);
   padding: 1rem;
   transition: background 0.2s ease;
 }
 
 .weather-stat:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(226, 232, 240, 0.85);
 }
 
 .weather-stat__label {
   font-size: 0.8rem;
-  color: var(--color-slate-300);
+  color: var(--color-slate-500);
 }
 
 .weather-stat__value {
@@ -383,6 +385,31 @@ html[data-theme="dark"] .search-form__input {
   margin-top: 0.5rem;
   width: 64px;
   height: 64px;
+}
+
+html[data-theme="dark"] .weather-card {
+  border-color: rgba(148, 163, 184, 0.2);
+  background: var(--color-slate-950);
+  color: #fff;
+}
+
+html[data-theme="dark"] .weather-card__label {
+  color: var(--color-sky-300);
+}
+
+html[data-theme="dark"] .weather-card__condition,
+html[data-theme="dark"] .weather-card__empty,
+html[data-theme="dark"] .weather-stat__label {
+  color: var(--color-slate-300);
+}
+
+html[data-theme="dark"] .weather-stat {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+}
+
+html[data-theme="dark"] .weather-stat:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .forecast-card {
