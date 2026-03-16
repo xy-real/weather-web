@@ -1,8 +1,28 @@
 @import "tailwindcss";
 
+/* ── Design tokens ─────────────────────────────────────────────── */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-sky-50: #f0f9ff;
+  --color-sky-100: #e0f2fe;
+  --color-sky-300: #7dd3fc;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-500: #64748b;
+  --color-slate-700: #334155;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+  --color-rose-50: #fff1f2;
+  --color-rose-200: #fecdd3;
+  --color-rose-700: #be123c;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
 }
 
 @theme inline {
@@ -12,12 +32,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base body ─────────────────────────────────────────────────── */
 
 body {
   min-height: 100vh;
@@ -26,4 +41,434 @@ body {
     linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 45%, #f8fafc 100%);
   color: #0f172a;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ── Page wrapper (Flexbox column) ─────────────────────────────── */
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+
+.page-header {
+  max-width: 48rem;
+}
+
+.header-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-sky-700);
+}
+
+.header-title {
+  margin-top: 1rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-slate-950);
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--color-slate-700);
+  line-height: 1.6;
+}
+
+/* ── App grid (CSS Grid — single column on mobile) ─────────────── */
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* ── Search panel (Flexbox column) ─────────────────────────────── */
+
+.search-panel {
+  border-radius: var(--radius-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.08);
+}
+
+.search-panel__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-sky-600);
+}
+
+.search-panel__heading {
+  margin-top: 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-slate-900);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.search-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-slate-700);
+}
+
+.search-form__input {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-slate-200);
+  background: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--color-slate-900);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-form__input:focus {
+  border-color: var(--color-sky-500);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.search-form__btn {
+  border: none;
+  border-radius: var(--radius-xl);
+  background: var(--color-sky-600);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.search-form__btn:hover {
+  background: var(--color-sky-700);
+}
+
+.search-form__btn:active {
+  transform: scale(0.98);
+}
+
+.search-hint {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-slate-500);
+}
+
+.search-error {
+  margin-top: 1rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-rose-200);
+  background: var(--color-rose-50);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-rose-700);
+}
+
+/* ── Weather card (dark panel) ────────────────────────────────── */
+
+.weather-card {
+  border-radius: var(--radius-2xl);
+  background: var(--color-slate-950);
+  padding: 1.5rem;
+  color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(2, 6, 23, 0.15);
+}
+
+.weather-card__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-sky-300);
+}
+
+/* Flexbox row for city + icon */
+.weather-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.weather-card__city {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.weather-card__condition {
+  margin-top: 0.5rem;
+  color: var(--color-slate-300);
+}
+
+.weather-card__icon {
+  font-size: 3rem;
+}
+
+/* CSS Grid sub-grid for stat boxes */
+.weather-card__stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.weather-stat {
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  transition: background 0.2s ease;
+}
+
+.weather-stat:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.weather-stat__label {
+  font-size: 0.8rem;
+  color: var(--color-slate-300);
+}
+
+.weather-stat__value {
+  margin-top: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ── Responsive badge (visual indicator of current breakpoint) ── */
+
+.responsive-badge {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(12px);
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.responsive-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Default: mobile badge */
+.responsive-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+.responsive-badge__dot {
+  background: #dc2626;
+}
+
+/* Hide desktop/tablet labels by default */
+.responsive-badge__tablet,
+.responsive-badge__desktop {
+  display: none;
+}
+.responsive-badge__mobile {
+  display: inline;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MEDIA QUERY 1 — TABLET  (min-width: 641px)
+   Layout: adjusted spacing, two-column stats grid
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 641px) {
+  .page-wrapper {
+    padding: 2.5rem 2rem;
+  }
+
+  .page-container {
+    gap: 2.5rem;
+  }
+
+  .header-title {
+    font-size: 2.25rem;
+  }
+
+  .header-subtitle {
+    font-size: 1.1rem;
+  }
+
+  /* Two columns on tablet but still stacked vertically */
+  .weather-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .search-panel,
+  .weather-card {
+    padding: 2rem;
+  }
+
+  /* Stat boxes go two-column */
+  .weather-card__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .weather-card__city {
+    font-size: 2rem;
+  }
+
+  .weather-card__icon {
+    font-size: 3.5rem;
+  }
+
+  .weather-stat__value {
+    font-size: 2.25rem;
+  }
+
+  /* Tablet badge */
+  .responsive-badge {
+    background: rgba(234, 179, 8, 0.15);
+    color: #a16207;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+  }
+  .responsive-badge__dot {
+    background: #ca8a04;
+  }
+  .responsive-badge__mobile { display: none; }
+  .responsive-badge__tablet { display: inline; }
+  .responsive-badge__desktop { display: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MEDIA QUERY 2 — DESKTOP  (min-width: 1025px)
+   Layout: expanded multi-column layout (sidebar + main)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1025px) {
+  .page-wrapper {
+    padding: 3rem 4rem;
+  }
+
+  .page-container {
+    gap: 2.5rem;
+  }
+
+  .header-title {
+    font-size: 2.75rem;
+  }
+
+  /* Side-by-side two-column grid: search sidebar + weather card */
+  .weather-grid {
+    grid-template-columns: 420px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .search-panel {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .weather-card__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .weather-card__icon {
+    font-size: 4rem;
+  }
+
+  .weather-stat__value {
+    font-size: 2.5rem;
+  }
+
+  /* Desktop badge */
+  .responsive-badge {
+    background: rgba(34, 197, 94, 0.15);
+    color: #15803d;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+  .responsive-badge__dot {
+    background: #16a34a;
+  }
+  .responsive-badge__mobile { display: none; }
+  .responsive-badge__tablet { display: none; }
+  .responsive-badge__desktop { display: inline; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MEDIA QUERY 3 — EXTRA-SMALL  (max-width: 400px)
+   Fine-tune for very small mobile screens
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 400px) {
+  .page-wrapper {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .header-title {
+    font-size: 1.4rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .search-panel,
+  .weather-card {
+    padding: 1.25rem;
+  }
+
+  .weather-card__city {
+    font-size: 1.35rem;
+  }
+
+  .weather-card__icon {
+    font-size: 2.5rem;
+  }
+
+  .weather-stat__value {
+    font-size: 1.75rem;
+  }
 }
