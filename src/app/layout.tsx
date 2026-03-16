@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Weather Web",
-  description: "A React weather dashboard with city search and state management.",
+  title: "Weather Web · Real-time Dashboard",
+  description:
+    "Real-time weather dashboard with city search, current conditions, 5-day forecast, caching, and dark/light theme.",
 };
 
 export default function RootLayout({
