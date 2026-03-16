@@ -1,20 +1,23 @@
 import { WeatherApp } from "@/components/weather/weather-app";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
     <main className="page-wrapper">
       <div className="page-container">
         <header className="page-header">
-          <p className="header-label">
-            Part 4 · API integration requirements
-          </p>
+          <div className="header-top-row">
+            <p className="header-label">
+              Weather Web · Real-time dashboard
+            </p>
+            <ThemeToggle />
+          </div>
           <h1 className="header-title">
-            Weather dashboard — OpenWeather API integration
+            Real-time weather dashboard with smart search and 5-day forecast
           </h1>
           <p className="header-subtitle">
-            Uses secure environment variables for API key storage, server-side
-            API key usage, invalid-city and network error handling, and a
-            loading spinner during requests.
+            Search any city to view current conditions and a 5-day outlook,
+            with fast cached results and a built-in dark/light theme toggle.
           </p>
         </header>
 
