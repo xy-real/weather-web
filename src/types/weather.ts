@@ -4,3 +4,11 @@ export type WeatherData = {
   condition: string;
   iconUrl: string;
 };
+
+export type ForecastData = {
+  date: string;
+  dayLabel: string;
+  temperature: number;
+  condition: string;
+  iconUrl: string;
+};
